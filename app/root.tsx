@@ -1,6 +1,8 @@
 import globalStylesUrl from '~/styles/global.css'
 import { ReactNode } from 'react'
-import { Outlet, LiveReload, Link } from 'remix'
+import { Outlet, LiveReload, Link, Links } from 'remix'
+
+export const links = () => [{ rel: 'stylesheet', href: globalStylesUrl }]
 
 export default function App() {
   return (
@@ -22,7 +24,7 @@ function Document({
   return (
     <html lang='en'>
       <head>
-        <link rel='stylesheet' href={globalStylesUrl} />
+        <Links />
         <title>{title ? title : 'Remix Blog'}</title>
       </head>
       <body>
