@@ -1,8 +1,18 @@
 import globalStylesUrl from '~/styles/global.css'
 import { ReactNode } from 'react'
-import { Outlet, LiveReload, Link, Links } from 'remix'
+import { Outlet, LiveReload, Link, Links, Meta } from 'remix'
 
 export const links = () => [{ rel: 'stylesheet', href: globalStylesUrl }]
+
+export const meta = () => {
+  const description = 'A cool blog built with Remix'
+  const keywords = 'remix, react, javascript'
+
+  return {
+    description,
+    keywords
+  }
+}
 
 export default function App() {
   return (
@@ -24,6 +34,9 @@ function Document({
   return (
     <html lang='en'>
       <head>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width, ititial-scale=1' />
+        <Meta />
         <Links />
         <title>{title ? title : 'Remix Blog'}</title>
       </head>
