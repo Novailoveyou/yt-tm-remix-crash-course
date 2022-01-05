@@ -67,3 +67,14 @@ function Layout({ children }: { children: ReactNode }) {
     </>
   )
 }
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <Document>
+      <Layout>
+        <h1>Error</h1>
+        <p>{error.message}</p>
+      </Layout>
+    </Document>
+  )
+}
