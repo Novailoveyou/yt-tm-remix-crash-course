@@ -8,7 +8,6 @@ export const action = async ({ request }: { request: Request }) => {
   const fields = { title, body }
 
   console.log(fields)
-  //
 
   // @todo - submit to database
 
