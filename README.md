@@ -10,6 +10,26 @@ Year 2021
 
 - [Remix official docs](https://remix.run/docs/en/v1)
 
+## CLI
+
+Install prisma
+
+```zsh
+npm i prisma @prisma/client
+```
+
+Init prisma with sqlite
+
+```zsh
+npx prisma init --datasource-provider sqlite
+```
+
+Push changed in prisma to database
+
+```zsh
+npx prisma db push
+```
+
 ## Initial readme
 
 ### Welcome to Remix
