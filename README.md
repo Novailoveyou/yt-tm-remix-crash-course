@@ -2,7 +2,7 @@
 
 ## About
 
-This is me following Brad Traversy's [youtube video](https://youtu.be/d_BhzHVV4aQ)
+This is me following Brad Traversy's youtube video [part one](https://youtu.be/d_BhzHVV4aQ) and [part two](https://youtu.be/wEoktJMSWLY)
 
 Year 2021
 
