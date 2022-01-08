@@ -13,6 +13,10 @@ const validateBody = (body: FormDataEntryValue | null) => {
   }
 }
 
+const badRequest = (data: {}) => {
+  return json(data, { status: 400 })
+}
+
 export const action = async ({ request }: { request: Request }) => {
   const form = await request.formData()
   const title = form.get('title')
@@ -27,7 +31,7 @@ export const action = async ({ request }: { request: Request }) => {
 
   if (Object.values(fieldErrors).some(Boolean)) {
     // console.log(fieldErrors)
-    return json({ fieldErrors, fields }, { status: 400 })
+    return badRequest({ fieldErrors, fields })
   }
 
   // @ts-ignore
