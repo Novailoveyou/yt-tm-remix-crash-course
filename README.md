@@ -30,6 +30,12 @@ Push changed in prisma to database
 npx prisma db push
 ```
 
+Prisma tool to see db
+
+```zsh
+npx prisma studio
+```
+
 ## Initial readme
 
 ### Welcome to Remix
