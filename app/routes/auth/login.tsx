@@ -1,8 +1,21 @@
 import { useActionData, json, redirect } from 'remix'
 import { db } from '~/utils/db.server'
+import { login } from '~/utils/session.server'
 
 const badRequest = (data: {}) => {
   return json(data, { status: 400 })
+}
+
+const validiteUsername = (username: FormDataEntryValue | null) => {
+  if (typeof username !== 'string' || username.length < 3) {
+    return 'Username should be a string and at least 3 characters long'
+  }
+}
+
+const validatePassword = (password: FormDataEntryValue | null) => {
+  if (typeof password !== 'string' || password.length < 6) {
+    return 'Password should be a string and at least 6 characters long'
+  }
 }
 
 export const action = async ({ request }: { request: Request }) => {
@@ -25,7 +38,14 @@ export const action = async ({ request }: { request: Request }) => {
   switch (loginType) {
     case 'login': {
       // Find user
+      const user = await login({ username, password })
       // Check user
+      if (!user) {
+        return badRequest({
+          fields,
+          fieldErrors: { usernae: 'Invalid Credentials' }
+        })
+      }
       // Create user session
     }
     case 'register': {
