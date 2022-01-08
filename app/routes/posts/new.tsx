@@ -1,5 +1,6 @@
 import { Link, redirect, useActionData, json } from 'remix'
 import { db } from '~/utils/db.server'
+import { getUser } from '~/utils/session.server'
 
 const validateTitle = (title: FormDataEntryValue | null) => {
   if (typeof title !== 'string' || title.length < 3) {
@@ -21,6 +22,7 @@ export const action = async ({ request }: { request: Request }) => {
   const form = await request.formData()
   const title = form.get('title')
   const body = form.get('body')
+  const user = await getUser(request)
 
   const fields = { title, body }
 
@@ -35,7 +37,7 @@ export const action = async ({ request }: { request: Request }) => {
   }
 
   // @ts-ignore
-  const post = await db.post.create({ data: fields })
+  const post = await db.post.create({ data: { ...fields, userId: user.id } })
 
   return redirect(`/posts/${post.id}`)
 }

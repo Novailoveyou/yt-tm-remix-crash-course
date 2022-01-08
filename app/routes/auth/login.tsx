@@ -43,7 +43,7 @@ export const action = async ({ request }: { request: Request }) => {
       if (!user) {
         return badRequest({
           fields,
-          fieldErrors: { usernae: 'Invalid Credentials' }
+          fieldErrors: { username: 'Invalid Credentials' }
         })
       }
       // Create user session
