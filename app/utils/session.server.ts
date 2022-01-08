@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { db } from './db.server'
-import { createCookieSessionStorage } from 'remix'
+import { createCookieSessionStorage, redirect } from 'remix'
 
 // Login user
 export const login = async ({
@@ -24,4 +24,34 @@ export const login = async ({
   if (!isCorrectPassword) return null
 
   return user
+}
+
+// Get session secret
+const sessionSecret = process.env.SESSION_SECRET
+if (!sessionSecret) {
+  throw new Error('No Session Secret')
+}
+
+// Create session storage
+const storage = createCookieSessionStorage({
+  cookie: {
+    name: 'remixblog_session',
+    secure: process.env.NODE_ENV === 'production',
+    secrets: [sessionSecret],
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 60 * 60 * 24 * 60,
+    httpOnly: true
+  }
+})
+
+// Create session
+export const createUserSession = async (userId: string, redirectTo: string) => {
+  const session = await storage.getSession()
+  session.set('userId', userId)
+  return redirect(redirectTo, {
+    headers: {
+      'Set-Cookie': await storage.commitSession(session)
+    }
+  })
 }
