@@ -8,6 +8,7 @@ export const action = async ({ request }: { request: Request }) => {
 
   const fields = { title, body }
 
+  // @ts-ignore
   const post = await db.post.create({ data: fields })
 
   return redirect(`/posts/${post.id}`)
