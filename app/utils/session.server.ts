@@ -26,6 +26,23 @@ export const login = async ({
   return user
 }
 
+// Register new user
+export const register = async ({
+  username,
+  password
+}: {
+  username: string
+  password: string
+}) => {
+  const passwordHash = await bcrypt.hash(password, 10)
+  return db.user.create({
+    data: {
+      username,
+      passwordHash
+    }
+  })
+}
+
 // Get session secret
 const sessionSecret = process.env.SESSION_SECRET
 if (!sessionSecret) {
